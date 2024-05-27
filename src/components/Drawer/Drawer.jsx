@@ -30,19 +30,32 @@ export default function SwipeableTemporaryDrawer() {
   const {getData} = useCreateClassGet();
   const {getJoinedData} = useJoinedClassGet();
 
-  const { createdClasses } = useCreatedClassesContext();
-  const { joinedClasses } = useJoinedClassesContext();
+  const { createdClasses, setCreatedClasses } = useCreatedClassesContext();
+  const { joinedClasses , setJoinedClasses} = useJoinedClassesContext();
 
   const url = "http://localhost/Classroom/DisplayClasses/DisplayCreatedClasses.php";
   const JoinedUrl = "http://localhost/Classroom/DisplayClasses/DisplayJoinedClass.php";
 
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
+  const [loading, setLoading] = React.useState(true);
+
+  const [variant1, setVarinat1] = React.useState("outlined");
+  const [variant2, setVarinat2] = React.useState("text");
+  const [variant3, setVarinat3] = React.useState("text");
+
+  const [classes, setClasses] = React.useState([]);
+
   React.useEffect(() => {
 
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
     const fetchData = async () => {
-      if (!user) {
-        navigate("/login");
-        return;
-      }
+      
       const params = {
         Email: user.Email,
       };
@@ -51,19 +64,25 @@ export default function SwipeableTemporaryDrawer() {
         id: user.id,
       };
 
-      const joinedSuccess = await getJoinedData(JoinedUrl, idParams);
+      try {
+        
+          getData(url, params),
+          getJoinedData(JoinedUrl, idParams)
 
-      const success = await getData(url, params);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    fetchData();
-  }, [])
-
-  const [variant1, setVarinat1] = React.useState("outlined");
-  const [variant2, setVarinat2] = React.useState("text");
-  const [variant3, setVarinat3] = React.useState("text");
-
-  const [classes, setClasses] = React.useState(createdClasses.concat(joinedClasses));
+    if (!createdClasses.length && !joinedClasses.length) {
+      fetchData();
+    } else {
+      setLoading(false);
+      setClasses([...createdClasses, ...joinedClasses]);
+    }
+  }, [user, navigate, createdClasses, joinedClasses, setCreatedClasses, setJoinedClasses]);
 
 
   const [state, setState] = React.useState({
@@ -78,9 +97,6 @@ export default function SwipeableTemporaryDrawer() {
     setState({ ...state, [anchor]: open });
   };
 
-
-  const location = useLocation();
-  const isHomePage = location.pathname === '/';
 
 
   const list = (anchor) => (
@@ -117,6 +133,11 @@ export default function SwipeableTemporaryDrawer() {
       </List>
     </Box>
   );
+
+  
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
@@ -163,10 +184,9 @@ export default function SwipeableTemporaryDrawer() {
                 Created
               </Button>
             </div>
-
-          
+         
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-[80rem] lg:mx-auto mx-5">
-              {classes.map((classData, index) => (
+              {classes != [] && classes.map((classData, index) => (
                   <div key={index}>
                     <AltClassesCard classData={classData} />
                   </div>
