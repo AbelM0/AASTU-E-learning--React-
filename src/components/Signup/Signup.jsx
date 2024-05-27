@@ -12,7 +12,7 @@ const Signup = () => {
   const [ email, setEmail] = useState("");
   const [ password, setPassword ] = useState("");   
 
-  const url = "http://localhost/Classroom/Signup/Singup.php";
+  const url = "http://localhost/Classroom/Signup/Signup.php";
 
   const { postData } = usePost();
   const navigate = useNavigate();
@@ -81,7 +81,7 @@ const Signup = () => {
             onChange={(e) => setFirstName(e.target.value)}
             value={firstName}
             error={error && error.First_name}
-            helperText={error && error.First_name && error.First_name}
+            helperText={error && error.First_name }
           />
           <TextField
             variant="outlined"
@@ -95,7 +95,7 @@ const Signup = () => {
             onChange={(e) => setLastName(e.target.value)}
             value={lastName}
             error={error && error.Last_name}
-            helperText={error && error.Last_name && error.Last_name}
+            helperText={error && error.Last_name }
           />
           <TextField
             variant="outlined"
@@ -109,7 +109,7 @@ const Signup = () => {
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             error={error && error.Email}
-            helperText={error && error.Email && error.Email}
+            helperText={error && error.Email}
           />
           <TextField
             variant="outlined"

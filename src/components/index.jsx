@@ -9,3 +9,4 @@ export { default as ClassesCard } from "./Classes/ClassesCard";
 export { default as ClassPage } from "./Classes/ClassPage";
 export { default as Class } from "./Home/Class";
 export { default as AltClassesCard } from "./Classes/AltClassesCard";
+export { default as SearchBar } from  "./util/SearchBar";

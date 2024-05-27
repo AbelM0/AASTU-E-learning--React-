@@ -7,6 +7,9 @@ import { CloudUpload } from '@mui/icons-material';
 import axios from 'axios';
 import { useUserContext } from '../../Context/userContext';
 import Announcement from '../AnnouncementCard/AnnouncementCard';
+import EditIcon from '@mui/icons-material/Edit';
+import { useClassContext } from '../../Context/context';
+import  EditClassDialog  from "./EditClassDialog";
 
 const ClassPage = ({classData}) => {
 
@@ -18,9 +21,15 @@ const ClassPage = ({classData}) => {
   const [ error, setError ] = useState(null);
   const [ announcements, setAnnouncements ] = useState([]);
   const { user } = useUserContext();
+  const [ canEdit, setCanEdit ] = useState(false);
+  const {showClassEdit, setShowClassEdit } = useClassContext();
 
   useEffect(() => {
     const fetchData = async () => {
+
+      if(user.Email == Owner_email){
+        setCanEdit(true);
+      }
       
       const params = {
         classId: id
@@ -133,6 +142,11 @@ const ClassPage = ({classData}) => {
             <div className="flex flex-wrap items-center mt-2 text-white">
               { Class_code && <em className="font-medium">Class Code : {Class_code}</em>}
             </div>
+            {canEdit && 
+            <div className='text-white bg-blue-600 w-[80px] rounded-xl p-2 flex justify-between cursor-pointer hover:shadow-lg mt-4' onClick={() => {setShowClassEdit(true)}}>
+              <p>Edit</p> <EditIcon />
+            </div>}
+            
           </div>
         </div>
       </div>
@@ -191,11 +205,12 @@ const ClassPage = ({classData}) => {
                 )}
               </div>
             </div>
-            {announcements.map((announcement, index) => (
+            {announcements.slice().reverse().map((announcement, index) => (
               <Announcement key={index} announcementData ={announcement} />
             ))}
           </div>
         </div>
+        <EditClassDialog classData ={classData} />
     </div>
   </div>
   )

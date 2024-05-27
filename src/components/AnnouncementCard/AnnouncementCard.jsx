@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Avatar } from "@mui/material";
+import DownloadIcon from '@mui/icons-material/Download';
 
 const Announcement = ({ announcementData  }) => {
 
@@ -19,9 +20,9 @@ const Announcement = ({ announcementData  }) => {
             {fileType.startsWith('image') ? (
               <img className="h-36 w-36 object-contain ml-4" src="C:\xampp\htdocs\Classroom\Upload\uploads\Harold.jpg" alt={fileName} />
             ) : (
-              <div className="h-36 w-36 flex items-center justify-center ml-4 bg-gray-200 text-gray-400">
-                File: {fileName}
-                <a href={fileUrl} />
+              <div className="flex items-center justify-center ml-4 space-x-4 bg-gray-200 text-gray-400">
+                <p>{fileName}</p>
+                <a href={fileUrl}> <DownloadIcon /> </a>
               </div>
             )}
           </div>

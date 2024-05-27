@@ -60,7 +60,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               error={error && error.Email}
-              helperText={error && error.Email && error.Email}
+              helperText={error && error.Email}
             />
             <TextField
               variant="outlined"
@@ -75,7 +75,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               error={error && error.Password}
-              helperText={error && error.Password && error.Password}
+              helperText={error && error.Password }
             />
           
             <Button

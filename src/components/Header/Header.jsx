@@ -9,12 +9,16 @@ import AppsIcon from '@mui/icons-material/Apps';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { CreateClass, JoinClass, ProfileDialog } from "..";
+import { CreateClass, JoinClass, ProfileDialog, SearchBar } from "..";
 import { useClassContext } from '../../Context/context'; 
+import { useLocation } from 'react-router';
+
 
 export default function Header({children}) {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -34,6 +38,8 @@ export default function Header({children}) {
           <Typography variant="h6" component="div" className="cursor-pointer" sx={{ flexGrow: 1 }}>
             AASTU E-learning
           </Typography>
+          {isHomePage && <SearchBar />}
+          
           <IconButton color="inherit" onClick={handleClick}>
             <AddIcon  />
           </IconButton>

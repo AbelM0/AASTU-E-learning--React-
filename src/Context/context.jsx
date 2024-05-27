@@ -11,6 +11,7 @@ export function ClassContextProvider({children}){
   const [joinClassDialog, setJoinClassDialog] = useState(false);
   const [profileDialog, setProfileDialog] = useState(false);
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+  const [showClassEdit, setShowClassEdit] = useState(false);
 
   const value={
     createClassDialog, 
@@ -20,7 +21,9 @@ export function ClassContextProvider({children}){
     profileDialog,
     setProfileDialog,
     showDeleteWarning,
-    setShowDeleteWarning
+    setShowDeleteWarning,
+    showClassEdit,
+    setShowClassEdit
   };
 
   return (

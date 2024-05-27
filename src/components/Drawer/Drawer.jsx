@@ -24,7 +24,7 @@ import { useLocation } from 'react-router';
 
 export default function SwipeableTemporaryDrawer() {
 
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
   const navigate = useNavigate();
 
   const {getData} = useCreateClassGet();
@@ -48,6 +48,8 @@ export default function SwipeableTemporaryDrawer() {
   const [classes, setClasses] = React.useState([]);
 
   React.useEffect(() => {
+
+
 
     if (!user) {
       navigate("/login");
@@ -82,7 +84,7 @@ export default function SwipeableTemporaryDrawer() {
       setLoading(false);
       setClasses([...createdClasses, ...joinedClasses]);
     }
-  }, [user, navigate, createdClasses, joinedClasses, setCreatedClasses, setJoinedClasses]);
+  }, [createdClasses, joinedClasses]);
 
 
   const [state, setState] = React.useState({
