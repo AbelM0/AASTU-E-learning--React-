@@ -3,6 +3,8 @@ import { Drawer, Login, Signup, Class } from "./components";
 import { BrowserRouter, Routes, Route, } from 'react-router-dom'
 import { useCreatedClassesContext } from './Context/classContext';
 import { useJoinedClassesContext } from './Context/joinedClassContext';
+import  TestTakingPage  from "./components/Test/TestTakingPage";
+import QuestionForm from './components/Test/QuestionForm';
 
 function App() {
 
@@ -21,7 +23,11 @@ function App() {
                   path={`/class/${classData.id}`}
                   element={<Class classData={classData} />}
                 />
+                
               ))}
+
+              {/* <Route path='/Test' element={<TestTakingPage />}/>
+              <Route path="/Questions" element={<QuestionForm />}/> */}
 
 
               {createdClasses.map((classData) => (

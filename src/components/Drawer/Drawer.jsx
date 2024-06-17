@@ -47,9 +47,8 @@ export default function SwipeableTemporaryDrawer() {
 
   const [classes, setClasses] = React.useState([]);
 
+
   React.useEffect(() => {
-
-
 
     if (!user) {
       navigate("/login");
@@ -84,7 +83,12 @@ export default function SwipeableTemporaryDrawer() {
       setLoading(false);
       setClasses([...createdClasses, ...joinedClasses]);
     }
+  }, []);
+
+  React.useEffect(() => {
+    setClasses([...createdClasses, ...joinedClasses]);
   }, [createdClasses, joinedClasses]);
+
 
 
   const [state, setState] = React.useState({
@@ -188,11 +192,16 @@ export default function SwipeableTemporaryDrawer() {
             </div>
          
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-[80rem] lg:mx-auto mx-5">
-              {classes != [] && classes.map((classData, index) => (
+              {classes != [] ? (
+
+                classes.map((classData, index) => (
                   <div key={index}>
                     <AltClassesCard classData={classData} />
                   </div>
-              ))}
+              )
+              ) ): (
+                <p>No classes available.</p>
+              )}
             </div>
           </div>
             }

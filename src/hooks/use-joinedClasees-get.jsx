@@ -10,8 +10,11 @@ export const useJoinedClassGet = () => {
       const res = await axios.get(url, { params });
 
       if(res.data.error == "None"){
-        setJoinedClasses(res.data.data);
-        setJoinedClassesAndStore(res.data.data);
+        
+        if(res.data.data != []){
+          setJoinedClasses(res.data.data);
+          setJoinedClassesAndStore(res.data.data);
+        } 
         setError(null);
         return true;
       } else {

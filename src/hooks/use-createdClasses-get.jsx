@@ -10,8 +10,12 @@ export const useCreateClassGet = () => {
       const res = await axios.get(url, { params });
 
       if(res.data.error == "None"){
-        setCreatedClasses(res.data.data);
-        setCreatedClassesAndStore(res.data.data);
+        
+        if(res.data.data != []){
+           setCreatedClasses(res.data.data);
+           setCreatedClassesAndStore(res.data.data);
+        }
+       
         setError(null);
         return true;
       } else {

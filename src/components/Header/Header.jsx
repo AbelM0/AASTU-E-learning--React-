@@ -34,8 +34,10 @@ export default function Header({children}) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar className="bg-white text-black">
-          {children}
-          <Typography variant="h6" component="div" className="cursor-pointer" sx={{ flexGrow: 1 }}>
+          <div className='hidden md:block'>
+            {children}
+          </div>
+          <Typography variant="h6" component="div" className="cursor-pointer hidden sm:block" sx={{ flexGrow: 1 }}>
             AASTU E-learning
           </Typography>
           {isHomePage && <SearchBar />}
